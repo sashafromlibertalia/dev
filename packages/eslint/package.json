@@ -1,0 +1,21 @@
+{
+  "name": "@builtbysasha/eslint-config",
+  "version": "1.0.0",
+  "author": "Alexander Miroshnichenko",
+  "description": "ESLint config for my projects",
+  "private": false,
+  "license": "MIT",
+  "main": "index.js",
+  "publishConfig": {
+    "@sashafromlibertalia:registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "test": "eslint --ext .ts,.js -c react-ts.json tests/**"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "eslint-plugin-react": "^7.31.11"
+  }
+}

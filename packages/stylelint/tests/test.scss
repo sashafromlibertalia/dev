@@ -1,0 +1,11 @@
+.formLabel {
+  display: block;
+  margin-left: 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+
+  &__required {
+    margin-left: .25rem;
+    color: red;
+  }
+}

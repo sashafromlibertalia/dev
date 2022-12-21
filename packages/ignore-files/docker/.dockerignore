@@ -1,0 +1,16 @@
+README.md
+CHANGELOG.md
+docker-compose.yml
+Dockerfile
+.git
+.gitattributes
+.gitignore
+.idea
+
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+node_modules

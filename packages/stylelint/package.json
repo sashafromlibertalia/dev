@@ -1,0 +1,21 @@
+{
+  "name": "@builtbysasha/stylelint",
+  "version": "1.0.0",
+  "author": "Alexander Miroshnichenko",
+  "private": false,
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "stylelint '**/*.scss'"
+  },
+  "publishConfig": {
+    "@sashafromlibertalia:registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "sass": "^1.56.1",
+    "sass-loader": "^13.2.0",
+    "stylelint": "^14.15.0",
+    "stylelint-config-standard-scss": "^6.1.0",
+    "stylelint-order": "^5.0.0"
+  }
+}
