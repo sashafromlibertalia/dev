@@ -1,5 +1,10 @@
 # eslint
 
+<div>
+    <img src="https://badge.fury.io/js/@builtbysasha%2Feslint-config.svg" alt="version"/>
+    <img src="https://img.shields.io/npm/dm/@builtbysasha/eslint-config" alt="downloads"/>
+</div>
+
 [Home page](../../README.md)
 
 ## Description

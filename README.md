@@ -28,4 +28,4 @@ More documentation can be found [here](packages/stylelint/README.md).
 
 ## License
 
-MIT
+[MIT](LICENSE)
