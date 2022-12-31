@@ -6,9 +6,6 @@
   "private": false,
   "license": "MIT",
   "main": "index.js",
-  "publishConfig": {
-    "@sashafromlibertalia:registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "test": "eslint --ext .ts,.js -c react-ts.json tests/**"
   },

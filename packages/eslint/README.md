@@ -1,4 +1,4 @@
-# Использование eslint
+# eslint
 
 [Home page](../../README.md)
 

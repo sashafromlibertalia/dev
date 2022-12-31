@@ -8,9 +8,6 @@
   "scripts": {
     "test": "stylelint '**/*.scss'"
   },
-  "publishConfig": {
-    "@sashafromlibertalia:registry": "https://npm.pkg.github.com"
-  },
   "dependencies": {
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
