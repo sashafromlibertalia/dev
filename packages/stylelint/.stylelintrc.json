@@ -179,8 +179,7 @@
     "value-list-comma-space-before": "never",
     "value-list-max-empty-lines": 0,
     "function-url-scheme-disallowed-list": [
-      "ftp",
-      "data"
+      "ftp"
     ],
     "order/properties-order": [
       [
