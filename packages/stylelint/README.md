@@ -19,7 +19,7 @@ npm install -D @builtbysasha/stylelint
 
 ## Setup
 
-In the root of the project, create a file `.stylelintrc.json` with the following content:
+In the root of the project, create a file `.stylelintrc` with the following content:
 
 ```json
 {
