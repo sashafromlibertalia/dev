@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  frontend:
+    container_name: ${COMPOSE_PROJECT_NAME}_frontend
+    hostname: ${COMPOSE_PROJECT_NAME}_frontend
+    build:
+      dockerfile: Dockerfile
+      target: dev
+    restart: unless-stopped
+    tty: true
+    env_file:
+      - .env
+    volumes:
+      - .:/website
+    ports:
+      - 20${PROJECT_ID}:3000
