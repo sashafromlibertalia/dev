@@ -61,7 +61,7 @@ Add the following to your `.eslintrc` file:
 ```json
 {
   "extends": [
-    "plugin:react/recommended
+    "plugin:react/recommended",
     "@builtbysasha/eslint-config/react-ts"
   ],
   "parserOptions": {
