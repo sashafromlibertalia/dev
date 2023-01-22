@@ -5,14 +5,14 @@ env:
   PROJECT_ID:
   DOCKER_BUILDKIT: 1
 
+silent: true
+
 tasks:
   default:
-    silent: true
     cmds:
       - task --list
 
   init:
-    silent: true
     desc: Инициализация проекта
     cmds:
       - task clean
@@ -21,25 +21,21 @@ tasks:
       - task info
 
   clean:
-    silent: true
     desc: Очистка контейнеров
     cmds:
       - docker-compose down --rmi local -v
 
   install:
-    silent: true
     desc: Установка зависимостей
     cmds:
       - docker-compose run --no-deps --rm -T frontend npm install
 
   start:
-    silent: true
     desc: Запуск проекта
     cmds:
       - docker-compose up -d --no-build
 
   restart:
-    silent: true
     desc: Перезапуск проекта
     cmds:
       - task clean
@@ -47,13 +43,11 @@ tasks:
       - task info
 
   stop:
-    silent: true
     desc: Остановка проекта
     cmds:
       - docker-compose stop
 
   lint:
-    silent: true
     desc: Проверка кода
     cmds:
       - printf "\033[33m%s:\033[0m\n" 'ESLint'
@@ -62,7 +56,6 @@ tasks:
       - docker-compose exec -T frontend npm run stylelint
 
   cs-fix:
-    silent: true
     desc: Форматирование кода
     cmds:
       - printf "\033[33m%s:\033[0m\n" 'ESLint'
@@ -71,13 +64,11 @@ tasks:
       - docker-compose exec -T frontend npm run stylelint:fix
 
   ps:
-    silent: true
     desc: Список запущенных контейнеров
     cmds:
       - docker-compose ps
 
   info:
-    silent: true
     desc: Информация о проекте
     cmds:
       - echo "site - http://localhost:20${PROJECT_ID}"
