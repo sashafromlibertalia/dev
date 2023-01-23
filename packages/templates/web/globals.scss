@@ -6,10 +6,6 @@
   padding: 0;
 }
 
-* {
-  margin: 0;
-}
-
 html,
 body {
   overflow-x: hidden;
@@ -62,10 +58,6 @@ input[type='number'] {
 
 button {
   cursor: pointer;
-
-  &:hover {
-    text-decoration: none;
-  }
 }
 
 #root,
