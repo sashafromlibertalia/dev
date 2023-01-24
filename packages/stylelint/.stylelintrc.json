@@ -243,15 +243,11 @@
         "transition"
       ],
       {
-        "unspecified": "top"
+        "unspecified": "bottom"
       }
     ],
     "order/order": [
       "declarations",
-      {
-        "type": "at-rule",
-        "name": "media"
-      },
       {
         "type": "rule",
         "selector": "^&: :(before|after)"
@@ -260,6 +256,11 @@
         "type": "rule",
         "selector": "^&:\\w"
       },
+      "rules",
+      {
+        "type": "at-rule",
+        "name": "media"
+      },
       {
         "type": "rule",
         "selector": "^&--\\w"
@@ -267,10 +268,6 @@
       {
         "type": "rule",
         "selector": "^&_"
-      },
-      {
-        "type": "rule",
-        "selector": "^."
       }
     ]
   },

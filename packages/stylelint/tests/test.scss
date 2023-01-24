@@ -4,8 +4,38 @@
   font-weight: 600;
   font-size: 1rem;
 
+  &::before {
+    content: '*';
+    display: none;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-left: 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: black;
+  }
+
+  &_sample {
+    color: red;
+  }
+
   &__required {
     margin-left: .25rem;
     color: red;
+
+    @media screen and (max-width: 540px) {
+      display: none;
+    }
+
+    &_active {
+      display: inline;
+    }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@builtbysasha/stylelint",
-  "version": "1.0.1",
+  "version": "1.0.10",
   "author": "Alexander Miroshnichenko",
   "description": "Stylelint config for my projects",
   "private": false,
