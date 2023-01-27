@@ -54,5 +54,6 @@ yarn-error.log*
 
 # Sentry
 .sentryclirc
+sentry.properties
 
 *.csv
