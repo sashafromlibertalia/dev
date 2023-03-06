@@ -16,7 +16,7 @@ Feel free to use.
 npm install -D @builtbysasha/eslint-config
 ```
 
-More documentation can be found [here](packages/eslint/README.md).
+More documentation can be found [here](packages/eslint).
 
 ### stylelint
 
@@ -24,7 +24,7 @@ More documentation can be found [here](packages/eslint/README.md).
 npm install -D @builtbysasha/stylelint
 ```
 
-More documentation can be found [here](packages/stylelint/README.md).
+More documentation can be found [here](packages/stylelint).
 
 ## License
 
