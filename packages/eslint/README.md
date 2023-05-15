@@ -14,7 +14,7 @@ This package contains linting rules for `.js` / `.ts` / `.tsx` files.
 ## Installation
 
 ```shell
-npm install @builtbysasha/eslint-config -D
+yarn add @builtbysasha/eslint-config -D
 ```
 
 ## Setup

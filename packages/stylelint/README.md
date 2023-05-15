@@ -14,7 +14,7 @@ This package contains linting rules for SCSS files.
 ## Installation
 
 ```shell
-npm install -D @builtbysasha/stylelint
+yarn add -D @builtbysasha/stylelint
 ```
 
 ## Setup
