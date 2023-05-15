@@ -13,18 +13,18 @@ Feel free to use.
 ### eslint
 
 ```shell
-npm install -D @builtbysasha/eslint-config
+yarn add -D @builtbysasha/eslint-config
 ```
 
-More documentation can be found [here](packages/eslint/README.md).
+More documentation can be found [here](packages/eslint).
 
 ### stylelint
 
 ```shell
-npm install -D @builtbysasha/stylelint
+yarn add -D @builtbysasha/stylelint
 ```
 
-More documentation can be found [here](packages/stylelint/README.md).
+More documentation can be found [here](packages/stylelint).
 
 ## License
 
