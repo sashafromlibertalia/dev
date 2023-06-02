@@ -33,7 +33,8 @@
             "allowExpressions": true
           }
         ],
-        "@typescript-eslint/no-useless-constructor": 0
+        "@typescript-eslint/no-useless-constructor": 0,
+        "@typescript-eslint/array-type": "error"
       }
     }
   ]
