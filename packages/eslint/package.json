@@ -1,6 +1,6 @@
 {
   "name": "@builtbysasha/eslint-config",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "Alexander Miroshnichenko",
   "description": "ESLint config for my projects",
   "private": false,
