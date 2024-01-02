@@ -1,6 +1,6 @@
 const test = "test";
-const fun = (): void => {
-  console.log(test);
+const fun = (): string => {
+  return test;
 };
 
 fun();

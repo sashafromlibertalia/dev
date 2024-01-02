@@ -38,6 +38,7 @@
     ],
     "no-trailing-spaces": "error",
     "arrow-spacing": ["error", { "before": true, "after": true }],
-    "comma-spacing": ["error", { "before": false, "after": true }]
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "no-console": "error"
   }
 }
