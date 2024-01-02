@@ -4,9 +4,6 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "lerna": "^6.4.1"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+    "lerna": "^8.0.1"
+  }
 }
