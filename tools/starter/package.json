@@ -25,7 +25,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && rm -rf dist/templates && cp -R ../../templates dist/templates",
     "typecheck": "tsc --noEmit",
     "start": "node ./bin/starter.js",
     "dev": "pnpm build && pnpm start",

@@ -3,9 +3,9 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
-// Папка templates/ лежит в корне репозитория.
-// Путь от этого файла: tools/starter/src/templates.ts → tools/starter/src → tools/starter → tools → <root>.
-export const TEMPLATES_ROOT = resolve(here, '../../../templates');
+// Папка templates/ копируется из корня репозитория в dist/templates на этапе сборки
+// (см. скрипт "build" в package.json) — так она попадает в npm-пакет вместе с dist/.
+export const TEMPLATES_ROOT = resolve(here, 'templates');
 
 export type TemplateEntry = {
     id: string;
