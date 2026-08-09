@@ -1,13 +1,16 @@
 {
   "name": "@builtbysasha/starter",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Interactive CLI to scaffold template files into the current project",
   "license": "MIT",
   "type": "module",
   "bin": {
     "starter": "./bin/starter.js"
   },
-  "files": ["bin", "dist"],
+  "files": [
+    "bin",
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
