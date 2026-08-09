@@ -1,8 +1,21 @@
 {
   "name": "@builtbysasha/starter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interactive CLI to scaffold template files into the current project",
   "license": "MIT",
+  "author": {
+    "name": "Aleksandr Miroshnichenko",
+    "url": "https://t.me/sashafromlibertalia"
+  },
+  "homepage": "https://github.com/sashafromlibertalia/dev/tree/main/tools/starter#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sashafromlibertalia/dev.git",
+    "directory": "tools/starter"
+  },
+  "bugs": {
+    "url": "https://github.com/sashafromlibertalia/dev/issues"
+  },
   "type": "module",
   "bin": {
     "starter": "./bin/starter.js"
