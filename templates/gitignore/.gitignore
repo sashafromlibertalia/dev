@@ -1,19 +1,11 @@
 /node_modules
-/.pnp
-.pnp.js
-/coverage
-
+coverage
 /.next/
 /out/
 build
 .next
 dist
 .dist
-
-__snapshot__
-__snapshots__
-
-/build
 
 .DS_Store
 *.pem
@@ -24,10 +16,6 @@ yarn-error.log*
 .pnpm-debug.log*
 
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 .vercel
 
@@ -39,5 +27,3 @@ yarn-error.log*
 
 .sentryclirc
 sentry.properties
-
-*.csv

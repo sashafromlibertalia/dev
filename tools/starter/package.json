@@ -1,0 +1,32 @@
+{
+  "name": "@builtbysasha/starter",
+  "version": "0.0.0",
+  "description": "Interactive CLI to scaffold template files into the current project",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "starter": "./bin/starter.js"
+  },
+  "files": ["bin", "dist"],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "start": "node ./bin/starter.js",
+    "dev": "pnpm build && pnpm start",
+    "prepack": "pnpm build",
+    "release": "./release.sh",
+    "release:patch": "./release.sh patch",
+    "release:minor": "./release.sh minor",
+    "release:major": "./release.sh major"
+  },
+  "dependencies": {
+    "@inquirer/checkbox": "^5.2.1",
+    "@inquirer/confirm": "^6.1.1",
+    "@inquirer/core": "^11.2.1",
+    "@inquirer/prompts": "^8.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "typescript": "^5.9.3"
+  }
+}

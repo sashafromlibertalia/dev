@@ -1,0 +1,80 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.5.7/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "ignoreUnknown": true
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 100
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "semicolons": "always",
+            "trailingCommas": "all",
+            "arrowParentheses": "always"
+        }
+    },
+    "css": {
+        "formatter": {
+            "enabled": true
+        },
+        "parser": {
+            "cssModules": true
+        },
+        "linter": {
+            "enabled": true
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended",
+            "complexity": {
+                "noStaticOnlyClass": "off"
+            },
+            "style": {
+                "noNonNullAssertion": "off",
+                "useBlockStatements": "error",
+                "useImportType": {
+                    "level": "error",
+                    "options": {
+                        "style": "separatedType"
+                    }
+                }
+            }
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [
+                            { "type": false, "source": "@*/**" },
+                            ":BLANK_LINE:",
+                            { "type": true, "source": "@*/**" },
+                            ":BLANK_LINE:",
+                            { "type": false, "source": [":PACKAGE:", "!@*/**"] },
+                            ":BLANK_LINE:",
+                            { "type": true, "source": [":PACKAGE:", "!@*/**"] },
+                            ":BLANK_LINE:",
+                            { "type": false, "source": ":PATH:" },
+                            ":BLANK_LINE:",
+                            { "type": true, "source": ":PATH:" }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

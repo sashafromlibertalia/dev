@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
-  "devDependencies": {
-    "lerna": "^8.0.1"
+  "packageManager": "pnpm@11.21.0",
+  "engines": {
+    "node": ">=24.15.0"
   }
 }

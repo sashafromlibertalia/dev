@@ -1,0 +1,113 @@
+name: Test & publish packages
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  test-eslint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/eslint
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v2
+        with:
+          runtime: node@24
+          cache: true
+
+      - name: Run tests
+        run: pnpm test
+
+  test-stylelint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/stylelint
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v2
+        with:
+          runtime: node@24
+          cache: true
+
+      - name: Run tests
+        run: pnpm test
+
+  test-starter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/starter
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v2
+        with:
+          runtime: node@24
+          cache: true
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
+
+  publish-starter:
+    # Только при push в main. PR и workflow_dispatch — skip.
+    # Внутри проверяем, отличается ли локальная версия от опубликованной в npm.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [test-starter]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/starter
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v2
+        with:
+          runtime: node@24
+          cache: true
+
+      - name: Check if version is new
+        id: check
+        run: |
+          LOCAL="$(node -p "require('./package.json').version")"
+          REMOTE="$(npm view @builtbysasha/starter version 2>/dev/null || echo "0.0.0")"
+          echo "Local:  $LOCAL"
+          echo "Remote: $REMOTE"
+          if [ "$LOCAL" = "$REMOTE" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Version already published, skipping."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure npm registry
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          printf 'registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}\n' >> ~/.npmrc
+
+      - name: Build
+        if: steps.check.outputs.skip != 'true'
+        run: pnpm build
+
+      - name: Publish to npm
+        if: steps.check.outputs.skip != 'true'
+        run: pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
