@@ -111,12 +111,17 @@ src/
 
 ### Серверное состояние (react-query)
 
-Клиентские модули используют @tanstack/react-query для хранения серверного состояния в кэше; в иных случаях используется
-react context.
-`QueryClient` создаётся в `src/shared/api/index.ts` (дефолты: `retry: 3`, `refetchOnMount: false`,
-`refetchOnWindowFocus: false`). Каждый хук на основе react-query должен быть обёрнут в кастомный хук `useAuthQuery`
-(`src/shared/hooks/useAuthQuery.ts`; он полностью повторяет контракт `useQuery`)
-— он автоматически включает запрос только при наличии токена и подставляет `Authorization` в заголовки. Например:
+Серверное состояние — **@tanstack/react-query**. `QueryClient` создаётся в `src/app/config/query-client.ts`
+и подключается в корневом `App` через `QueryClientProvider`. Дефолты — `retry: false`
+
+Слои доменного серверного состояния:
+
+- `src/domains/<domain>/api.ts` — чистые функции запросов (без React): `ChipsApi.getClubBalance()` и т.п.
+- `src/domains/<domain>/shared/api/index.ts` — react-query хуки (`useClubBalance`, `useGrantChips`, ...), импортируемые
+  страницами и фичами.
+
+Эталон фабрики query-ключей:
+Пример хука:
 
 ```ts
 export const useProfileData = () => {
@@ -129,8 +134,24 @@ export const useProfileData = () => {
 };
 ```
 
-Каждый хук на основе react-query должен иметь свой queryKey, который должен быть описан в enum `QueryKeysEnum`
-(`src/shared/api/index.ts`)
+Каждый хук на основе react-query должен иметь свой queryKey.
+
+- `src/shared/api/query-keys.ts` — query-key фабрики по доменам (`chipKeys`, `limitKeys`, `joinRequestKeys`), по
+  корневому ключу удобно инвалидировать весь кэш домена.
+
+```ts
+/**
+ * Фабрики query-ключей. Каждый домен имеет свой корневой ключ — по нему
+ * удобно инвалидировать весь кэш домена целиком (например, после мутации).
+ * @see https://tkdodo.eu/blog/effective-react-query-keys
+ */
+export const chipKeys = {
+        all: ['chips'] as const,
+        balance: ['chips', 'balance'] as const,
+        txs: (holderType?: ChipHolderType, holderId?: string) =>
+            ['chips', 'txs', {holderType, holderId}] as const,
+    };
+```
 
 ### HTTP-клиент (axios)
 
@@ -230,23 +251,6 @@ API/данные, ключевые файлы, нюансы). Сводный и�
 - **Props**: Явные TypeScript-интерфейсы (например, `Props`)
 - **Состояние**: Локальное состояние (`useState`) или react-context для общего состояния
 - **Соглашения**: Смотри скилл `react-components` для детальных примеров
-
-## Скиллы (.claude/skills/)
-
-Проектные скиллы загружаются через skill tool. Используй их для специализированных задач вместо того, чтобы выводить
-паттерны из контекста вручную:
-
-| Скилл                     | Когда применять                                                                                                                                                               |
-|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `typescript-patterns`     | Определение типов, работа с TS, исправление ошибок типов (строгий режим, type vs interface, дискриминированные объединения, служебные типы, интеграция типов бэкенда)         |
-| `react-components`        | Создание и рефакторинг React-компонентов, хуков, UI-элементов (функциональные компоненты + хуки, декомпозиция)                                                                |
-| `css-modules-styling`     | Добавление стилей, работа со стилизацией компонентов (`styles.module.css`, импорт `css`, camelCase-классы)                                                                    |
-| `i18n-setup`              | Добавление пользовательского текста и переводов (React Intl + папки `_.i18n/`), выбор `<FormattedMessage>` vs `intl.formatMessage`                                            |
-| `translate`               | Добавление новой локали/языка в проект («переведи на немецкий», «добавь французскую локаль», генерация `*.js` из `en.js`)                                                     |
-| `frontend-best-practices` | Сложные задачи, рефакторинг, архитектурные решения (паттерны проектирования, SOLID, лучшие практики фронтенда)                                                                |
-| `poker-skin`              | Добавление нового скина/темы/бренда приложения TonPoker (по образцу TON/Solana), поддержка новой сети, white-label. Триггеры: «новый скин», «добавь тему», «ребрендинг под Y» |
-| `bug`                     | Сообщения о багах от QA: описание проблемы → поиск причины → фикc → GitLab MR. Триггеры: «баг», «не работает», «сломалось», «ошибка»                                          |
-| `fullstack-feature`       | Сквозная фича через бекенд (Go) и фронтенд (React) одним процессом, чтобы API-контракт не разошёлся. Триггеры: «фича целиком», «и на беке и на фронте», `/fullstack-feature`  |
 
 ## Частые подводные камни
 

@@ -43,7 +43,7 @@ export const TEMPLATES: readonly TemplateEntry[] = [
         category: 'configs',
         label: '.gitignore',
         description: 'Стандартный .gitignore для Node/Vite/Next',
-        source: 'gitignore/.gitignore',
+        source: 'gitignore/gitignore.template',
         destination: '.gitignore',
     },
 
