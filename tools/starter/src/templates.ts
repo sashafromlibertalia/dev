@@ -126,4 +126,20 @@ export const TEMPLATES: readonly TemplateEntry[] = [
         source: 'claude/skills/typescript-patterns/SKILL.md',
         destination: '.claude/skills/typescript-patterns/SKILL.md',
     },
+    {
+        id: 'claude-skill-fullstack',
+        category: 'claude',
+        label: 'skill: fullstack',
+        description: 'Скилл сквозной fullstack-разработки фичи',
+        source: 'claude/skills/fullstack/SKILL.md',
+        destination: '.claude/skills/fullstack/SKILL.md',
+    },
+    {
+        id: 'claude-skill-spec-from-diff',
+        category: 'claude',
+        label: 'skill: spec-from-diff',
+        description: 'Скилл генерации ТЗ по git-диффу',
+        source: 'claude/skills/spec-from-diff/SKILL.md',
+        destination: '.claude/skills/spec-from-diff/SKILL.md',
+    },
 ] as const;
