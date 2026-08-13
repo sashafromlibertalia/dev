@@ -1,4 +1,5 @@
-import { dirname, resolve } from 'node:path';
+import { existsSync, readdirSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -17,18 +18,66 @@ export type TemplateEntry = {
 };
 
 // ────────────────────────────────────────────────────────────────────────────
-// ЯВНАЯ МАПА РАЗМЕЩЕНИЯ ШАБЛОНОВ
+// АГЕНТЫ И СКИЛЛЫ CLAUDE CODE — АВТООБНАРУЖЕНИЕ
 // ────────────────────────────────────────────────────────────────────────────
-// Каждый шаблон из templates/ жёстко привязан к целевому пути в проекте,
-// где запускается CLI. Чтобы изменить, куда кладётся файл — правь поле
-// `destination`. Путь указывается относительно CWD (папки запуска CLI).
+// Каждый .md в templates/claude/agents/ и каждая папка с SKILL.md в
+// templates/claude/skills/ автоматически становится пунктом списка. Чтобы
+// добавить агента или скилл — просто положи файл в templates/, ничего в
+// тулинге менять не нужно. Содержимое references/ рядом со SKILL.md копируется
+// сама (см. writer.ts).
+// ────────────────────────────────────────────────────────────────────────────
+
+function discoverAgents(): TemplateEntry[] {
+    const dir = join(TEMPLATES_ROOT, 'claude/agents');
+    if (!existsSync(dir)) return [];
+
+    return readdirSync(dir)
+        .filter((file) => file.endsWith('.md'))
+        .sort()
+        .map((file) => {
+            const name = file.replace(/\.md$/, '');
+            return {
+                id: `claude-agent-${name}`,
+                category: 'claude',
+                label: `agent: ${name}`,
+                description: `Агент ${name}`,
+                source: `claude/agents/${file}`,
+                destination: `.claude/agents/${file}`,
+            };
+        });
+}
+
+function discoverSkills(): TemplateEntry[] {
+    const dir = join(TEMPLATES_ROOT, 'claude/skills');
+    if (!existsSync(dir)) return [];
+
+    return readdirSync(dir, { withFileTypes: true })
+        .filter((entry) => entry.isDirectory() && existsSync(join(dir, entry.name, 'SKILL.md')))
+        .map((entry) => entry.name)
+        .sort()
+        .map((name) => ({
+            id: `claude-skill-${name}`,
+            category: 'claude',
+            label: `skill: ${name}`,
+            description: `Скилл ${name}`,
+            source: `claude/skills/${name}/SKILL.md`,
+            destination: `.claude/skills/${name}/SKILL.md`,
+        }));
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// ЯВНАЯ МАПА РАЗМЕЩЕНИЯ ОСТАЛЬНЫХ ШАБЛОНОВ
+// ────────────────────────────────────────────────────────────────────────────
+// Всё, что не является агентом или скиллом, жёстко привязано к целевому пути
+// в проекте, где запускается CLI. Чтобы изменить, куда кладётся файл — правь
+// поле `destination`. Путь указывается относительно CWD (папки запуска CLI).
 //
 // Структура строки destination:
 //   '.'              → корень проекта
 //   'src/styles/...' → вложенная папка проекта (создаётся автоматически)
 //
 // ────────────────────────────────────────────────────────────────────────────
-export const TEMPLATES: readonly TemplateEntry[] = [
+const STATIC_TEMPLATES: readonly TemplateEntry[] = [
     // ══ КОНФИГИ ПРОЕКТА → всегда в корень (./) ═══════════════════════════════
     {
         id: 'biome',
@@ -66,80 +115,10 @@ export const TEMPLATES: readonly TemplateEntry[] = [
         source: 'claude/CLAUDE.md',
         destination: 'CLAUDE.md',
     },
+];
 
-    // ══ CLAUDE CODE: АГЕНТЫ → в .claude/agents/ ══════════════════════════════
-    {
-        id: 'claude-agent-feature-impact-analyst',
-        category: 'claude',
-        label: 'agent: feature-impact-analyst',
-        description: 'Агент анализа влияния фич',
-        source: 'claude/agents/feature-impact-analyst.md',
-        destination: '.claude/agents/feature-impact-analyst.md',
-    },
-
-    // ══ CLAUDE CODE: СКИЛЛЫ → в .claude/skills/<name>/SKILL.md ═══════════════
-    {
-        id: 'claude-skill-frontend-best-practices',
-        category: 'claude',
-        label: 'skill: frontend-best-practices',
-        description: 'Скилл паттернов проектирования фронтенда',
-        source: 'claude/skills/frontend-best-practices/SKILL.md',
-        destination: '.claude/skills/frontend-best-practices/SKILL.md',
-    },
-    {
-        id: 'claude-skill-translate',
-        category: 'claude',
-        label: 'skill: translate',
-        description: 'Скилл добавления локалей',
-        source: 'claude/skills/translate/SKILL.md',
-        destination: '.claude/skills/translate/SKILL.md',
-    },
-    {
-        id: 'claude-skill-css-modules-styling',
-        category: 'claude',
-        label: 'skill: css-modules-styling',
-        description: 'Скилл стилизации через CSS Modules',
-        source: 'claude/skills/css-modules-styling/SKILL.md',
-        destination: '.claude/skills/css-modules-styling/SKILL.md',
-    },
-    {
-        id: 'claude-skill-react-components',
-        category: 'claude',
-        label: 'skill: react-components',
-        description: 'Скилл создания React-компонентов',
-        source: 'claude/skills/react-components/SKILL.md',
-        destination: '.claude/skills/react-components/SKILL.md',
-    },
-    {
-        id: 'claude-skill-i18n-setup',
-        category: 'claude',
-        label: 'skill: i18n-setup',
-        description: 'Скилл настройки интернационализации',
-        source: 'claude/skills/i18n-setup/SKILL.md',
-        destination: '.claude/skills/i18n-setup/SKILL.md',
-    },
-    {
-        id: 'claude-skill-typescript-patterns',
-        category: 'claude',
-        label: 'skill: typescript-patterns',
-        description: 'Скилл TypeScript-паттернов',
-        source: 'claude/skills/typescript-patterns/SKILL.md',
-        destination: '.claude/skills/typescript-patterns/SKILL.md',
-    },
-    {
-        id: 'claude-skill-fullstack',
-        category: 'claude',
-        label: 'skill: fullstack',
-        description: 'Скилл сквозной fullstack-разработки фичи',
-        source: 'claude/skills/fullstack/SKILL.md',
-        destination: '.claude/skills/fullstack/SKILL.md',
-    },
-    {
-        id: 'claude-skill-spec-from-diff',
-        category: 'claude',
-        label: 'skill: spec-from-diff',
-        description: 'Скилл генерации ТЗ по git-диффу',
-        source: 'claude/skills/spec-from-diff/SKILL.md',
-        destination: '.claude/skills/spec-from-diff/SKILL.md',
-    },
-] as const;
+export const TEMPLATES: readonly TemplateEntry[] = [
+    ...STATIC_TEMPLATES,
+    ...discoverAgents(),
+    ...discoverSkills(),
+];
